@@ -5,11 +5,11 @@ on:
       - master
       - dev
 env:
-  user_name: Ahmed Afifi
+  user_name: ${{secrets.USER_NAME}}
 jobs:
   test:
     env:
-      user_password: 2030
+      user_password: ${{secrets.USER_PASSWORD}}
     environment: testing
     runs-on: ubuntu-latest
     steps:
@@ -22,19 +22,17 @@ jobs:
           key: npm-deps-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-      - name: Run server
-        run: npm start & npx wait-on http://127.0.0.1:XYZ
       - name: Run tests
         run: npm test
       - name: Output information
         run: |
-          echo "User_Name: ${{ env.user_name}}"
-          echo "Password: ${{env.user_password}}"
+          echo "User_Name: ${{ secrets.USER_NAME}}"
+          echo "Password: ${{secrets.USER_PASSWORD}}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
         run: |        
-          echo "User_Name: ${{env.user_name}}"
-          echo "Password: ${{env.user_password}}"
+          echo "User_Name: ${{secrets.USER_NAME}}"
+          echo "Password: ${{secrets.USER_PASSWORD}}"
