@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - master
-      - main
-      - dev
 env:
   user_name: ${{secrets.USER_NAME}}
 jobs:
